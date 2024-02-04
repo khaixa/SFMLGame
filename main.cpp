@@ -2,9 +2,9 @@
 #include <memory>
 #include <fstream>
 
-// #include <SFML/Graphics.hpp>
-// #include "imgui.h"
-// #include "imgui-SFML.h"
+#include <sfml/graphics.hpp>
+#include "imgui.h"
+#include "imgui-sfml.h"
 
 int main(int argc, char* argv[]){
 
@@ -38,5 +38,31 @@ int main(int argc, char* argv[]){
         std::cerr << "Could not load font\n";
         exit(-1);
     }
+
+    sf::Text text("Sample Text", myFont, 24);
+
+    text.setPosition(0, wHeight - (float)text.getCharacterSize());
+
+    char displayString[255] = "Sample Text";
+
+    while (windowe.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            ImGui::SFML::ProcessEvent(window, event);
+
+            if (event.type == sf::Event::KeyPressed) {
+                std::cout << "Key pressed with code = " << event.key.code << "\n";
+
+                if (event.key.code == sf::Keyboard::X) {
+                    circleSpeedX *= -1.0f;
+                }
+            }
+        }
+
+        ImGui::SFML::Update(window, deltaClock.restart());
+
+        ImGui::Begin 
+    }
+
     
 }
